@@ -1,7 +1,7 @@
-KISYSMOD=/usr/share/kicad/library/
+KICAD_LIB=/usr/share/kicad/library/
 
 %.net: %.py
-	python2 $<
+	KISYSMOD=$(KICAD_LIB) python2 $<
 
 all: schematic.net
 
