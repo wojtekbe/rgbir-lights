@@ -1,9 +1,10 @@
 KICAD_LIB=/usr/share/kicad/library/
+PCBNAME=lights
 
 %.net: %.py
 	KISYSMOD=$(KICAD_LIB) python2 $<
 
-all: schematic.net
+all: $(PCBNAME).net
 
 clean:
-	-rm -rf schematic.log schematic.net skidl.log
+	-rm -rf $(PCBNAME).log $(PCBNAME).net skidl.log
