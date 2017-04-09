@@ -26,7 +26,7 @@ leds_out_conn = Part('conn', 'CONN_01X08', footprint='Connectors:IDC_Header_Stra
 #main_connector = Part('conn', 'CONN_01x04', footprint='')
 
 #vled connector
-vled_connector = Part('conn', 'CONN_01x02', footprint='Connectors:AK300-2') #TODO: change footprint
+vled_connector = Part('conn', 'CONN_01x02', footprint='Connectors:bornier2')
 vled_connector[1] += vled
 vled_connector[2] += gnd
 
