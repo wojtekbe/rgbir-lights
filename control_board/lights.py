@@ -66,6 +66,7 @@ def led_ctrl(ctrl_in, anode, cathode, rext_val):
     led_drv[1] += ctrl_in
     led_drv[5] += cathode
     led_drv[4] += rext[1]
+    #TODO: add 4pin micromatch connector
 
 led_ctrl(led1_ctrl, leds_out_conn[1], leds_out_conn[2], '1K')
 led_ctrl(led2_ctrl, leds_out_conn[3], leds_out_conn[4], '1K')
