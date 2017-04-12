@@ -3,7 +3,14 @@
 from __future__ import unicode_literals #for py3 strings
 from skidl import *
 
-lib_search_paths[KICAD].append('lib')
+#internal lib
+lights_lib = SchLib(tool=SKIDL).add_parts(*[
+    Part(name='MBI1801',dest=TEMPLATE,tool=SKIDL,keywords=u'POWER LED DRIVER MBI1801',description=u'All-Ways-On High-Power LED Driver',ref_prefix='U',num_units=1,do_erc=True,footprint=u'TO_SOT_Packages_SMD:TO-263-5Lead',pins=[
+        Pin(num='1',name='~OE',do_erc=True),
+        Pin(num='2',name='VDD',func=Pin.PWRIN,do_erc=True),
+        Pin(num='3',name='GND',func=Pin.PWRIN,do_erc=True),
+        Pin(num='4',name='Rext',func=Pin.PWROUT,do_erc=True),
+        Pin(num='5',name='~OUT',func=Pin.OUTPUT,do_erc=True)])])
 
 #signals
 #power
@@ -49,7 +56,7 @@ def led_ctrl(ctrl_in, anode, cathode, rext_val):
     global gnd
     global vin
     global vled
-    led_drv = Part('macroblock', 'MBI1801', footprint='TO_SOT_Packages_SMD:TO-263-5Lead')
+    led_drv = Part(lights_lib, 'MBI1801')
     rext = Part('device', 'R', value=rext_val, footprint='Resistors_SMD:R_0805')
     c_vin = Part('device', 'C', value='100n', footprint='Capacitors_SMD:C_0805')
     c2 = Part('device', 'C', value='100n', footprint='Capacitors_THT:CP_Radial_D4.0mm_P2.00mm')
@@ -65,5 +72,4 @@ led_ctrl(led2_ctrl, leds_out_conn[3], leds_out_conn[4], '1K')
 led_ctrl(led3_ctrl, leds_out_conn[5], leds_out_conn[6], '1K')
 led_ctrl(led3_ctrl, leds_out_conn[7], leds_out_conn[8], '1K')
 
-ERC()
 generate_netlist()

@@ -1,9 +1,0 @@
-EESchema-DOCLIB  Version 2.0
-#
-$CMP MBI1801
-D All-Ways-On High-Power LED Driver
-K POWER LED DRIVER MBI1801
-F http://www.mblock.com.tw/products.php?KindID=2&ID=19
-$ENDCMP
-#
-#End Doc Library
