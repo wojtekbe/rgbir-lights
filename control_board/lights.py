@@ -26,9 +26,6 @@ led4_ctrl = Net('CTRL4')
 sda = Net('SDA')
 scl = Net('SCL')
 
-#LED connector
-leds_out_conn = Part('conn', 'CONN_01X08', footprint='Connectors:IDC_Header_Straight_8pins')
-
 #TODO: i2c, vin connector
 #main_connector = Part('conn', 'CONN_01x04', footprint='')
 
@@ -52,25 +49,22 @@ pwm_drv[26] += scl
 
 #MBI1801 led driver + elements
 @SubCircuit
-def led_ctrl(ctrl_in, anode, cathode, rext_val):
-    global gnd
-    global vin
-    global vled
+def led_controller(vin, gnd, vled, ctrl_in, rext_val):
     led_drv = Part(lights_lib, 'MBI1801')
+    out_conn = Part('conn', 'CONN_01x04', footprint='Connectors_micromatch:THT_4P')
     rext = Part('device', 'R', value=rext_val, footprint='Resistors_SMD:R_0805')
     c_vin = Part('device', 'C', value='100n', footprint='Capacitors_SMD:C_0805')
     c2 = Part('device', 'C', value='100n', footprint='Capacitors_THT:CP_Radial_D4.0mm_P2.00mm')
     gnd += c_vin[2], rext[2], led_drv[3], c2[2]
     vin += led_drv[2], c_vin[1]
-    vled += c2[1], anode
+    vled += c2[1], out_conn[3], out_conn[4]
     led_drv[1] += ctrl_in
-    led_drv[5] += cathode
+    led_drv[5] += out_conn[1], out_conn[2]
     led_drv[4] += rext[1]
-    #TODO: add 4pin micromatch connector
 
-led_ctrl(led1_ctrl, leds_out_conn[1], leds_out_conn[2], '1K')
-led_ctrl(led2_ctrl, leds_out_conn[3], leds_out_conn[4], '1K')
-led_ctrl(led3_ctrl, leds_out_conn[5], leds_out_conn[6], '1K')
-led_ctrl(led3_ctrl, leds_out_conn[7], leds_out_conn[8], '1K')
+led_controller(vin, gnd, vled, led1_ctrl, '1K')
+led_controller(vin, gnd, vled, led2_ctrl, '1K')
+led_controller(vin, gnd, vled, led3_ctrl, '1K')
+led_controller(vin, gnd, vled, led4_ctrl, '1K')
 
 generate_netlist()
