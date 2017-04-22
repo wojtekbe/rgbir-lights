@@ -27,7 +27,13 @@ sda = Net('SDA')
 scl = Net('SCL')
 
 #TODO: i2c, vin connector
-#main_connector = Part('conn', 'CONN_01x04', footprint='')
+main_connector = Part('conn', 'CONN_02x03', footprint='Connectors_wb:SMD_Female_Header_2mm_2x3')
+main_connector[1] += vin
+main_connector[2] += gnd
+main_connector[3] += led1_ctrl
+main_connector[4] += led2_ctrl
+main_connector[5] += led3_ctrl
+main_connector[6] += led4_ctrl
 
 #vled connector
 vled_connector = Part('conn', 'CONN_01x02', footprint='Connectors:bornier2')
@@ -51,7 +57,7 @@ pwm_drv[26] += scl
 @SubCircuit
 def led_controller(vin, gnd, vled, ctrl_in, rext_val):
     led_drv = Part(lights_lib, 'MBI1801')
-    out_conn = Part('conn', 'CONN_01x04', footprint='Connectors_micromatch:THT_4P')
+    out_conn = Part('conn', 'CONN_01x04', footprint='Connectors_wb:THT_4P')
     rext = Part('device', 'R', value=rext_val, footprint='Resistors_SMD:R_0805')
     c_vin = Part('device', 'C', value='100n', footprint='Capacitors_SMD:C_0805')
     c2 = Part('device', 'C', value='100n', footprint='Capacitors_THT:CP_Radial_D4.0mm_P2.00mm')
