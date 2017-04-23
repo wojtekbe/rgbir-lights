@@ -24,8 +24,7 @@ def appendRectOutline(fp, s, e, lw=0.3, layer='F.SilkS'):
     fp.append(Line(start=c, end=[c[0], c[1]-lw], layer=layer, width=0.12))
 
 #smd pin header 2x3 raster 2mm
-name = "SMD_Female_Pin_Header_2x03_2mm"
-pin_h = Footprint(name)
+pin_h = Footprint("SMD_Female_Pin_Header_2x03_2mm")
 pin_h.append(Text(type='reference', text='REF**', at=[-3.9, 0], rotation=90, layer='F.SilkS'))
 pin_h.append(Text(type='value', text='VAL**', at=[3.9, 0], rotation=90, layer='F.Fab', hide=True))
 
@@ -48,4 +47,6 @@ for i in range(1, 7):
 
 #write  output file
 fh = KicadFileHandler(pin_h)
-fh.writeFile(LIBNAME + '/' + name + '.kicad_mod')
+fname = LIBNAME + '/' + pin_h.name + '.kicad_mod'
+print('Generating footprint:', fname)
+fh.writeFile(fname)
