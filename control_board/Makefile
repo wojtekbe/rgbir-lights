@@ -1,5 +1,5 @@
 KICAD_LIB=/usr/share/kicad/library/
-PCBNAME=lights
+PCBNAME=ctrl_board
 
 netlist: $(PCBNAME).net
 .PHONY: clean netlist
