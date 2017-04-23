@@ -26,14 +26,12 @@ led4_ctrl = Net('CTRL4')
 sda = Net('SDA')
 scl = Net('SCL')
 
-#TODO: i2c, vin connector
-main_connector = Part('conn', 'CONN_02x03', footprint='Connectors_wb:SMD_Female_Header_2mm_2x3')
-main_connector[1] += vin
-main_connector[2] += gnd
-main_connector[3] += led1_ctrl
-main_connector[4] += led2_ctrl
-main_connector[5] += led3_ctrl
-main_connector[6] += led4_ctrl
+#main connector (I2C, +5V supply)
+main_connector = Part('conn', 'CONN_02x03', footprint='generated:SMD_Female_Pin_Header_2x03_2mm')
+main_connector[1] += sda
+main_connector[2] += scl
+main_connector[3] += gnd
+main_connector[4] += vin
 
 #vled connector
 vled_connector = Part('conn', 'CONN_01x02', footprint='Connectors:bornier2')
