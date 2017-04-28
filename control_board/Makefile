@@ -1,7 +1,7 @@
 KICAD_LIB=/usr/share/kicad/library/
 PCBNAME=ctrl_board
 
-netlist: footprints $(PCBNAME).net
+netlist: footprints $(PCBNAME).net subcircuits.py
 .PHONY: clean netlist footprints
 
 footprints: footprints.py
