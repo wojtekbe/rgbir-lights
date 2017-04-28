@@ -1,3 +1,4 @@
 *.net
 *.log
 generated.pretty
+*.pyc
