@@ -19,22 +19,12 @@ led6_ctrl = Net('CTRL6')
 sda = Net('SDA')
 scl = Net('SCL')
 
-parts = SchLib(tool=SKIDL).add_parts(*[
-    Part(name=u'TK1_expansion_J3A2',dest=TEMPLATE,tool=SKIDL,keywords=u'NVIDIA JETSON TK1 EXPANSION J3A2',
-        description=u'Nvidia Jetson TK1 Expansion Connector',ref_prefix='J',num_units=1,do_erc=True,footprint=u'generated:Jetson_TK1_Expansion_Connector_J3A2',
-        pins=[Pin(num=str(p), name=('P'+str(p)), func=Pin.PASSIVE, do_erc=True) for p in range(1, (3*25+1))]),
-
-    Part(name=u'TK1_expansion_J3A1',dest=TEMPLATE,tool=SKIDL,keywords=u'NVIDIA JETSON TK1 EXPANSION J3A1',
-        description=u'Nvidia Jetson TK1 Expansion Connector',ref_prefix='J',num_units=1,do_erc=True,footprint=u'generated:Jetson_TK1_Expansion_Connector_J3A1',
-        pins=[Pin(num=str(p), name=('P'+str(p)), func=Pin.PASSIVE, do_erc=True) for p in range(1, (2*25+1))])
-    ])
-
 #main connector (I2C, +5V supply)
-main_connector = Part(parts, 'TK1_expansion_J3A2', footprint='generated:Jetson_TK1_Expansion_Connector_J3A2')
-main_connector[1] += vin
-main_connector[8] += sda
-main_connector[11] += scl
-main_connector[14] += gnd
+main_connector = Part('conn', 'CONN_01x04', footprint='generated:MicroMatch_4p')
+main_connector[1] += sda
+main_connector[2] += scl
+main_connector[3] += gnd
+main_connector[4] += vin
 
 #vled connector
 vled_connector = Part('conn', 'CONN_01x02', footprint='Connectors:bornier2')
