@@ -19,7 +19,7 @@ def power_led_driver(vin, gnd, vled, ctrl_in, rext_val):
     c2 = Part('device', 'C', value='100n', footprint='Capacitors_THT:CP_Radial_D4.0mm_P2.00mm')
     gnd += c_vin[2], rext[2], led_drv[3], c2[2]
     vin += led_drv[2], c_vin[1]
-    vled += c2[1], out_conn[3], out_conn[4]
+    vled += c2[1], out_conn[1], out_conn[2]
     led_drv[1] += ctrl_in
-    led_drv[5] += out_conn[1], out_conn[2]
+    led_drv[5] += out_conn[3], out_conn[4]
     led_drv[4] += rext[1]
