@@ -13,7 +13,7 @@ def power_led_driver(vin, gnd, vled, ctrl_in, rext_val):
             Pin(num='5',name='~OUT',func=Pin.OUTPUT,do_erc=True)])])
 
     led_drv = Part(lights_lib, 'MBI1801')
-    out_conn = Part('conn', 'CONN_01x04', footprint='generated:MicroMatch_4p')
+    out_conn = Part('conn', 'CONN_01x04', footprint='generated:THT_MicroMatch_4p')
     rext = Part('device', 'R', value=rext_val, footprint='Resistors_SMD:R_0805')
     c_vin = Part('device', 'C', value='100n', footprint='Capacitors_SMD:C_0805')
     c2 = Part('device', 'C', value='100n', footprint='Capacitors_THT:CP_Radial_D4.0mm_P2.00mm')

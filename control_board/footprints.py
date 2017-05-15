@@ -51,7 +51,7 @@ def pin_header_2mm():
 
 lib.append(pin_header_2mm())
 
-def micromatch_conn(p, pad_type=Pad.TYPE_SMT):
+def micromatch_conn_SMD(p):
     fp = Footprint("MicroMatch_%dp"% p)
     rr = 1.27
     A = rr*p + 2.02
@@ -66,9 +66,9 @@ def micromatch_conn(p, pad_type=Pad.TYPE_SMT):
 
     #pins
     fp.append(PadArray(pincount=int(p/2), x_spacing=2*rr, center=[-rr/2, -2], initial=1, increment=2,
-        type=pad_type, shape=Pad.SHAPE_RECT, size=[1.5, 2.5], layers=Pad.LAYERS_SMT))
+        type=Pad.TYPE_SMT, shape=Pad.SHAPE_RECT, size=[1.5, 2.5], layers=Pad.LAYERS_SMT))
     fp.append(PadArray(pincount=int(p/2), x_spacing=2*rr, center=[rr/2, 2], initial=2, increment=2,
-        type=pad_type, shape=Pad.SHAPE_RECT, size=[1.5, 2.5], layers=Pad.LAYERS_SMT))
+        type=Pad.TYPE_SMT, shape=Pad.SHAPE_RECT, size=[1.5, 2.5], layers=Pad.LAYERS_SMT))
 
     #package
     fp.append(PolygoneLine(
@@ -78,7 +78,37 @@ def micromatch_conn(p, pad_type=Pad.TYPE_SMT):
 
     return fp
 
-lib.append(micromatch_conn(4))
+lib.append(micromatch_conn_SMD(4))
+
+def micromatch_conn_THT(p):
+    fp = Footprint("THT_MicroMatch_%dp"% p)
+    rr = 1.27
+    A = rr*p + 2.02
+    C = A - 1.5
+    D = 5.2
+    ul = array([-A/2, -D/2])
+    fp.append(RectLine(start=[-A/2, -7.3/2], end=[A/2, 7.3/2], layer='F.CrtYd', width=0.05))
+    fp.append(Text(type='reference', text='REF**', at=[-A/2-0.9, 0], rotation=90, layer='F.SilkS'))
+    fp.append(Text(type='value', text='VAL**', at=[A/2+0.9, 0], rotation=90, layer='F.Fab', hide=True))
+    appendRectOutline(fp, ul.tolist(), (ul*[-1,-1]).tolist(), ll=0.5)
+    appendPin1Dot(fp, at=[-3.2, -3.1])
+
+    #pins
+    d = 0.81
+    fp.append(PadArray(pincount=int(p/2), x_spacing=2*rr, center=[-rr/2, -2], initial=1, increment=2,
+        type=Pad.TYPE_THT, shape=Pad.SHAPE_CIRCLE, drill=d, size=[1.27, 1.27], layers=Pad.LAYERS_THT))
+    fp.append(PadArray(pincount=int(p/2), x_spacing=2*rr, center=[rr/2, 2], initial=2, increment=2,
+        type=Pad.TYPE_THT, shape=Pad.SHAPE_CIRCLE, drill=d, size=[1.27, 1.27], layers=Pad.LAYERS_THT))
+
+    #package
+    fp.append(PolygoneLine(
+        polygone=array([ul, ul+[A,0], ul+[A,D], ul+[0,D], ul+[0,D-1.25], ul+[(A-C)/2, D-1.25], ul+[(A-C)/2, 1.25], ul+[0, 1.25], ul]).tolist(),
+        layer='F.Fab', width=0.1))
+    fp.append(RectLine(start=[-C/2, -2], end=[C/2, 2], layer='F.Fab', width=0.1))
+
+    return fp
+
+lib.append(micromatch_conn_THT(4))
 
 def jetson_tk1_expansion():
     fp = Footprint("Jetson_TK1_Expansion_Connector_J3A2")
