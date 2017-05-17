@@ -1,5 +1,5 @@
 from pcbnew import wxPoint, GetBoard, TRACK
-from math import sin, cos, radians
+from math import sin, cos, radians, degrees, atan2, sqrt
 
 PREC=2
 
@@ -16,12 +16,21 @@ def ls_mods():
     for m in mods:
         print("{}: {} {} {}".format(m.GetReference(), m.GetValue(), pt2list(m.GetPosition()), m.GetOrientation()/10.0))
 
+def to_polar(xy):
+    rho = round(sqrt(xy[0]**2 + xy[1]**2), PREC)
+    theta = round(degrees(atan2(xy[1], xy[0])), PREC)
+    return [rho, theta]
+
+def to_cart(rt):
+    x = round(rt[0] * cos(radians(rt[1])), PREC)
+    y = round(rt[0] * sin(radians(rt[1])), PREC)
+    return [x, y]
+
 def ls_nets():
     netcodes = pcb.GetNetsByNetcode()
     for netcode, net in netcodes.items():
         pads = net.Pads()
         print("{} {}".format(netcode, net.GetNetname()))
-        print(type(net.GetNetname()))
 
 def ls_tracks():
     netcodes = pcb.GetNetsByNetcode()
@@ -72,7 +81,7 @@ def set_angle(ref, angle):
     new_orientation = (angle*10)
     module.SetOrientation(new_orientation)
 
-def add_track(net, start, end, layer):
+def add_track(net, start, end, layer=0):
     t = TRACK(pcb)
     pcb.Add(t)
     t.SetNet(get_net(net))
@@ -80,3 +89,15 @@ def add_track(net, start, end, layer):
     t.SetEnd(list2pt(end))
     t.SetLayer(layer)
     print("{} {} {} {}".format(net, start, end, pcb.GetLayerName(layer)))
+
+def add_arc_track(net, r, start_angle, end_angle, segments=6, layer=0):
+    da = ((end_angle - start_angle) / float(segments))
+    for s in range(segments):
+        sa = start_angle + (s * da)
+        ea = start_angle + ((s + 1) * da)
+        add_track(net, to_cart([r, sa],), to_cart([r, ea]), layer)
+
+def get_pos(ref):
+    module = pcb.FindModuleByReference(ref)
+    pos = module.GetPosition()
+    return pt2list(pos)
