@@ -53,6 +53,14 @@ def add_arc_track(net, r, start_angle, end_angle, segments=6, layer=0):
         ea = start_angle + ((s + 1) * da)
         add_track(net, to_cart([r, sa],), to_cart([r, ea]), layer)
 
+def circle_pattern(mods, refmod):
+    n = len(mods) + 1
+    da = 360 / float(n)
+    print(da)
+    for i,m in enumerate(mods):
+        m.align(refmod)
+        m.rotate((i+1)*da)
+
 class PolyLine:
     def __init__(self, pcb, pts, layer=0, width=0.2):
         self.pcb = pcb
