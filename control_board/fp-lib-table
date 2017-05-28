@@ -1,4 +1,3 @@
 (fp_lib_table
-  (lib (name Connectors_wb)(type KiCad)(uri ${KIPRJMOD}/Connectors_wb.pretty)(options "")(descr ""))
   (lib (name generated)(type KiCad)(uri ${KIPRJMOD}/generated.pretty)(options "")(descr ""))
 )
