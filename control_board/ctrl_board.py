@@ -44,7 +44,9 @@ pwm_drv[10] += led5_ctrl
 pwm_drv[11] += led6_ctrl
 pwm_drv[27] += sda
 pwm_drv[26] += scl
-#TODO: pin header for selecting i2c addr?
+#fixed i2c address 0x41
+vin += pwm_drv[1]
+gnd += pwm_drv[2], pwm_drv[3], pwm_drv[4], pwm_drv[5]
 
 #add Power-LED subcircuits
 from subcircuits import power_led_driver
