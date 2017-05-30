@@ -1,6 +1,10 @@
 #!/usr/bin/env python2
 
 from __future__ import unicode_literals #for py3 strings
+import os
+
+os.environ["KISYSMOD"] = "/usr/share/kicad/library/"
+
 from skidl import *
 
 #signals
@@ -57,4 +61,4 @@ power_led_driver(vin, gnd, vled, led4_ctrl, '1K')
 power_led_driver(vin, gnd, vled, led5_ctrl, '1K')
 power_led_driver(vin, gnd, vled, led6_ctrl, '1K')
 
-generate_netlist()
+generate_netlist(file='netlist.net')
