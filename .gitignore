@@ -1,5 +1,6 @@
+*.pyc
+*kicad_pcb-bak
+*_lib_sklib.py
 *.net
 *.log
 generated.pretty
-*.pyc
-*kicad_pcb-bak
