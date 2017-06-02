@@ -25,3 +25,9 @@ def gen_inner_edge(r, b):
     return edge
 
 inner_edge = gen_inner_edge(46.5, 7)
+
+mods = [M['C2'], M['C12'], M['C10'], M['C8'], M['C6']]
+circle_pattern(mods, M['C4'])
+
+mods = [M['R1'], M['R6'], M['R5'], M['R4'], M['R3']]
+circle_pattern(mods, M['R2'])
