@@ -67,9 +67,9 @@ def micromatch_conn_SMD(p):
 
     #pins
     fp.append(PadArray(pincount=int(p/2), x_spacing=2*rr, center=[-rr/2, -2], initial=1, increment=2,
-        type=Pad.TYPE_SMT, shape=Pad.SHAPE_RECT, size=[1.5, 2.5], layers=Pad.LAYERS_SMT))
+        type=Pad.TYPE_SMT, shape=Pad.SHAPE_RECT, size=[1.5, 3], layers=Pad.LAYERS_SMT))
     fp.append(PadArray(pincount=int(p/2), x_spacing=2*rr, center=[rr/2, 2], initial=2, increment=2,
-        type=Pad.TYPE_SMT, shape=Pad.SHAPE_RECT, size=[1.5, 2.5], layers=Pad.LAYERS_SMT))
+        type=Pad.TYPE_SMT, shape=Pad.SHAPE_RECT, size=[1.5, 3], layers=Pad.LAYERS_SMT))
 
     #package
     fp.append(PolygoneLine(
@@ -85,27 +85,21 @@ def micromatch_conn_THT(p):
     fp = Footprint("THT_MicroMatch_%dp"% p)
     rr = 1.27
     A = rr*p + 2.02
-    C = A - 1.5
-    D = 5.2
-    ul = array([-A/2, -D/2])
-    fp.append(RectLine(start=[-A/2, -7.3/2], end=[A/2, 7.3/2], layer='F.CrtYd', width=0.05))
+    B = 5
+    ul = array([-A/2, -B/2])
+    fp.append(RectLine(start=[-A/2, -B/2], end=[A/2, B/2], layer='F.CrtYd', width=0.05))
     fp.append(Text(type='reference', text='REF**', at=[-A/2-0.9, 0], rotation=90, layer='F.SilkS'))
     fp.append(Text(type='value', text='VAL**', at=[A/2+0.9, 0], rotation=90, layer='F.Fab', hide=True))
     appendRectOutline(fp, ul.tolist(), (ul*[-1,-1]).tolist(), ll=0.5)
     appendPin1Dot(fp, at=[-3.2, -3.1])
 
     #pins
-    d = 0.81
-    fp.append(PadArray(pincount=int(p/2), x_spacing=2*rr, center=[-rr/2, -2], initial=1, increment=2,
+    d = 0.9
+    fp.append(PadArray(pincount=int(p/2), x_spacing=2*rr, center=[-rr/2, -rr], initial=1, increment=2,
         type=Pad.TYPE_THT, shape=Pad.SHAPE_CIRCLE, drill=d, size=[1.27, 1.27], layers=Pad.LAYERS_THT))
-    fp.append(PadArray(pincount=int(p/2), x_spacing=2*rr, center=[rr/2, 2], initial=2, increment=2,
+    fp.append(PadArray(pincount=int(p/2), x_spacing=2*rr, center=[rr/2, rr], initial=2, increment=2,
         type=Pad.TYPE_THT, shape=Pad.SHAPE_CIRCLE, drill=d, size=[1.27, 1.27], layers=Pad.LAYERS_THT))
 
-    #package
-    fp.append(PolygoneLine(
-        polygone=array([ul, ul+[A,0], ul+[A,D], ul+[0,D], ul+[0,D-1.25], ul+[(A-C)/2, D-1.25], ul+[(A-C)/2, 1.25], ul+[0, 1.25], ul]).tolist(),
-        layer='F.Fab', width=0.1))
-    fp.append(RectLine(start=[-C/2, -2], end=[C/2, 2], layer='F.Fab', width=0.1))
 
     return fp
 
@@ -134,6 +128,26 @@ def jetson_tk1_expansion():
 
 lib.append(jetson_tk1_expansion())
 
+
+def tripod_mount():
+    fp = Footprint("Mounting_holes")
+    fp.append(Text(type='reference', text='REF**', at=[0, 0], layer='F.SilkS', hide=True))
+    drill = 3.1
+    pad_sz = drill
+    H = 10 #triangle H
+    A = 15 #triangle base
+    fp.append(Pad(number=1, type=Pad.TYPE_NPTH, layers=Pad.LAYERS_NPTH, shape=Pad.SHAPE_CIRCLE,
+            drill=drill, at=[-A/2, H/2], size=pad_sz))
+    fp.append(Pad(number=2, type=Pad.TYPE_NPTH, layers=Pad.LAYERS_NPTH, shape=Pad.SHAPE_CIRCLE,
+            drill=drill, at=[A/2, H/2], size=pad_sz))
+    fp.append(Pad(number=3, type=Pad.TYPE_NPTH, layers=Pad.LAYERS_NPTH, shape=Pad.SHAPE_CIRCLE,
+            drill=drill, at=[0, -H/2], size=pad_sz))
+
+    return fp
+
+lib.append(tripod_mount())
+
+#TODO: clean the generated.pretty/ lib
 #write  output file
 for fp in lib:
     fh = KicadFileHandler(fp)
