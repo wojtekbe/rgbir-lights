@@ -132,7 +132,7 @@ lib.append(jetson_tk1_expansion())
 def tripod_mount():
     fp = Footprint("Mounting_holes")
     fp.append(Text(type='reference', text='REF**', at=[0, 0], layer='F.SilkS', hide=True))
-    drill = 3.1
+    drill = 3
     pad_sz = drill
     H = 10 #triangle H
     A = 15 #triangle base
