@@ -30,6 +30,21 @@ def ls_tracks():
         tracks = pcb.TracksInNet(netcode)
         print("{} {} {}".format(netcode, net.GetNetname(), [[wxpoint_to_list(t.GetStart()) for t in tracks], [wxpoint_to_list(t.GetEnd()) for t in tracks]]))
 
+def gen_bom(fname='bom.txt'):
+    bom = {}
+    for r,m in M.iteritems():
+        pack = m.get_value() + ':' + m.get_package()
+        if pack not in bom:
+            bom[pack] = []
+        bom[pack].append(r)
+
+    with open(fname, 'w') as f:
+        for p,R in bom.iteritems():
+            ref_list = ''
+            for n,ref in enumerate(R):
+                ref_list += (ref + ',') if (n < (len(R)-1)) else ref
+            f.write("%dx %s %s\n" %(len(R), p, ref_list))
+
 def get_net(n):
     if isinstance(n, int):
         nets = pcb.GetNetsByNetcode()
@@ -160,6 +175,12 @@ class Mod:
     def align(self, mod):
         self.move(to=mod.get_pos())
         self.set_angle(mod.get_angle())
+
+    def get_value(self):
+        return self.m.GetValue()
+
+    def get_package(self):
+        return self.m.GetFPID().GetLibItemName().utf8_to_wxstring()
 
 pcb = GetBoard()
 
