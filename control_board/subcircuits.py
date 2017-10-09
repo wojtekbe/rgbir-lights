@@ -5,7 +5,7 @@ from skidl import *
 @SubCircuit
 def power_led_driver(vin, gnd, vled, ctrl_in, rext_val):
     lights_lib = SchLib(tool=SKIDL).add_parts(*[
-        Part(name='MBI1801',dest=TEMPLATE,tool=SKIDL,keywords=u'POWER LED DRIVER MBI1801',description=u'All-Ways-On High-Power LED Driver',ref_prefix='U',num_units=1,do_erc=True,footprint=u'TO_SOT_Packages_SMD:TO-263-5Lead',pins=[
+        Part(name='MBI1801',dest=TEMPLATE,tool=SKIDL,keywords=u'POWER LED DRIVER MBI1801',description=u'All-Ways-On High-Power LED Driver',ref_prefix='U',num_units=1,do_erc=True,footprint=u'TO_SOT_Packages_SMD:TO-263-5_TabPin3',pins=[
             Pin(num='1',name='~OE',do_erc=True),
             Pin(num='2',name='VDD',func=Pin.PWRIN,do_erc=True),
             Pin(num='3',name='GND',func=Pin.PWRIN,do_erc=True),

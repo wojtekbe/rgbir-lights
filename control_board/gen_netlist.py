@@ -38,7 +38,7 @@ vled_connector[2] += gnd
 #PCA9685 led driver
 pwm_drv = Part('nxp', 'PCA9685PW', footprint='Housings_SSOP:TSSOP-28_4.4x9.7mm_Pitch0.65mm')
 c_pwm_drv = Part('device', 'C', value='100n', footprint='Capacitors_SMD:C_0805')
-gnd += pwm_drv[14], pwm_drv[23], c_pwm_drv[2]
+gnd += pwm_drv[14], pwm_drv[24], pwm_drv[25], c_pwm_drv[2]
 vin += pwm_drv[28], c_pwm_drv[1]
 pwm_drv[6] += led1_ctrl
 pwm_drv[7] += led2_ctrl
@@ -50,7 +50,7 @@ pwm_drv[27] += sda
 pwm_drv[26] += scl
 #fixed i2c address 0x41
 vin += pwm_drv[1]
-gnd += pwm_drv[2], pwm_drv[3], pwm_drv[4], pwm_drv[5]
+gnd += pwm_drv[2], pwm_drv[3], pwm_drv[4], pwm_drv[5], pwm_drv[23]
 
 #add Power-LED subcircuits
 from subcircuits import power_led_driver
