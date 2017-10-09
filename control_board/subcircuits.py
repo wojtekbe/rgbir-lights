@@ -16,7 +16,7 @@ def power_led_driver(vin, gnd, vled, ctrl_in, rext_val):
     out_conn = Part('conn', 'CONN_01x04', footprint='generated:THT_MicroMatch_4p')
     rext = Part('device', 'R', value=rext_val, footprint='Resistors_SMD:R_0805')
     c_vin = Part('device', 'C', value='100n', footprint='Capacitors_SMD:C_0805')
-    c2 = Part('device', 'C', value='100u', footprint='Capacitors_THT:CP_Radial_D4.0mm_P2.00mm')
+    c2 = Part('device', 'C', value='100u', footprint='Capacitors_SMD:CP_Elec_6.3x5.3')
     gnd += c_vin[2], rext[2], led_drv[3], c2[2]
     vin += led_drv[2], c_vin[1]
     vled += c2[1], out_conn[1], out_conn[2]

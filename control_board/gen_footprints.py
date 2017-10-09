@@ -3,7 +3,7 @@ import sys
 import os
 from numpy import array
 
-sys.path.append(os.path.join(sys.path[0], "../../kicad-footprint-generator/"))
+sys.path.append(os.path.join(sys.path[0], "../../../kicad-footprint-generator/"))
 from KicadModTree import *
 
 LIBNAME='generated.pretty'
@@ -91,19 +91,39 @@ def micromatch_conn_THT(p):
     fp.append(Text(type='reference', text='REF**', at=[-A/2-0.9, 0], rotation=90, layer='F.SilkS'))
     fp.append(Text(type='value', text='VAL**', at=[A/2+0.9, 0], rotation=90, layer='F.Fab', hide=True))
     appendRectOutline(fp, ul.tolist(), (ul*[-1,-1]).tolist(), ll=0.5)
-    appendPin1Dot(fp, at=[-3.2, -3.1])
+    appendPin1Dot(fp, at=[-3.2, 3.1])
 
     #pins
     d = 0.9
-    fp.append(PadArray(pincount=int(p/2), x_spacing=2*rr, center=[-rr/2, -rr], initial=1, increment=2,
+    fp.append(PadArray(pincount=int(p/2), x_spacing=2*rr, center=[-rr/2, rr], initial=1, increment=2,
         type=Pad.TYPE_THT, shape=Pad.SHAPE_CIRCLE, drill=d, size=[1.27, 1.27], layers=Pad.LAYERS_THT))
-    fp.append(PadArray(pincount=int(p/2), x_spacing=2*rr, center=[rr/2, rr], initial=2, increment=2,
+    fp.append(PadArray(pincount=int(p/2), x_spacing=2*rr, center=[rr/2, -rr], initial=2, increment=2,
         type=Pad.TYPE_THT, shape=Pad.SHAPE_CIRCLE, drill=d, size=[1.27, 1.27], layers=Pad.LAYERS_THT))
 
 
     return fp
 
 lib.append(micromatch_conn_THT(4))
+
+def EDGRC_conn(p):
+    fp = Footprint("THT_15EDGRC_%dp"% p)
+    sp = 3.5
+    A = (p-1)*sp+4.3
+    B = 9.2
+    ul = array([-A/2, -B/2])
+    fp.append(RectLine(start=[-A/2, -B/2], end=[A/2, B/2], layer='F.CrtYd', width=0.05))
+    fp.append(Text(type='reference', text='REF**', at=[-A/2-0.9, 0], rotation=90, layer='F.SilkS'))
+    fp.append(Text(type='value', text='VAL**', at=[A/2+0.9, 0], rotation=90, layer='F.Fab', hide=True))
+    appendRectOutline(fp, ul.tolist(), (ul*[-1,-1]).tolist(), ll=0.5)
+
+    #pins
+    d = 1.5
+    fp.append(PadArray(pincount=int(p), x_spacing=sp, center=[0, 3.4], initial=1, increment=1,
+        type=Pad.TYPE_THT, shape=Pad.SHAPE_CIRCLE, drill=d, size=[2.2, 2.2], layers=Pad.LAYERS_THT))
+
+    return fp
+
+lib.append(EDGRC_conn(2))
 
 def jetson_tk1_expansion():
     fp = Footprint("Jetson_TK1_Expansion_Connector_J3A2")

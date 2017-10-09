@@ -31,7 +31,7 @@ main_connector[3] += gnd
 main_connector[4] += vin
 
 #vled connector
-vled_connector = Part('conn', 'CONN_01x02', footprint='Connectors:bornier2')
+vled_connector = Part('conn', 'CONN_01x02', footprint='generated:THT_15EDGRC_2p')
 vled_connector[1] += vled
 vled_connector[2] += gnd
 
