@@ -1,11 +1,6 @@
 ## The concept:
 ![rgbir-lights concept](concept.png)
 
-## The design:
-### Control board:
-![rgbir-lights pcbdesign-front](pcbdesign-front.png)
-![rgbir-lights pcbdesign-back](pcbdesign-back.png)
-
 ## Parts:
 * Power-LEDs:
  - Red: [LZ1-00R102](http://www.ledengin.com/files/products/LZ1/LZ1-00R102.pdf)
