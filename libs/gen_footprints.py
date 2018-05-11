@@ -106,6 +106,7 @@ def micromatch_conn_THT(p):
 lib.append(micromatch_conn_THT(4))
 
 def EDGRC_conn(p):
+    '''https://www.tme.eu/pl/details/15edgrc-3.5-02p-13/listwy-zaciskowe-rozlaczalne/degson-electronics/15edgrc-35-02p-13-00ah/'''
     fp = Footprint("THT_15EDGRC_%dp"% p)
     sp = 3.5
     A = (p-1)*sp+4.3
