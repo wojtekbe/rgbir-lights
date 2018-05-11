@@ -4,3 +4,9 @@
 *.net
 *.log
 generated.pretty
+*.zip
+
+#gerbers
+*.drl
+*.gbr
+
