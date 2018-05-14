@@ -1,4 +1,4 @@
-(module powerled:ledengin-LZ1 (layer F.Cu) (tedit 5AF956D3)
+(module powerled:ledengin-LZ1 (layer F.Cu) (tedit 5AF94B90)
   (fp_text reference REF** (at -3.81 0 90) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )
@@ -26,37 +26,9 @@
   (fp_line (start 3 -3) (end 3 3) (layer F.CrtYd) (width 0.12))
   (fp_line (start 3 3) (end -3 3) (layer F.CrtYd) (width 0.12))
   (fp_line (start -3 3) (end -3 -3) (layer F.CrtYd) (width 0.12))
-  (pad 1 smd custom (at -1.97 -1.97) (size 1 1) (layers F.Cu F.Paste F.Mask)
-    (zone_connect 0)
-    (options (clearance outline) (anchor rect))
-    (primitives
-      (gr_poly (pts
-         (xy -0.735 0.735) (xy 0.335 0.735) (xy 0.735 0.335) (xy 0.735 -0.735) (xy -0.735 -0.735)
-) (width 0))
-    ))
-  (pad 2 smd custom (at 1.97 -1.97 270) (size 1 1) (layers F.Cu F.Paste F.Mask)
-    (zone_connect 0)
-    (options (clearance outline) (anchor rect))
-    (primitives
-      (gr_poly (pts
-         (xy -0.735 0.735) (xy 0.335 0.735) (xy 0.735 0.335) (xy 0.735 -0.735) (xy -0.735 -0.735)
-) (width 0))
-    ))
-  (pad 3 smd custom (at 1.97 1.97 180) (size 1 1) (layers F.Cu F.Paste F.Mask)
-    (zone_connect 0)
-    (options (clearance outline) (anchor rect))
-    (primitives
-      (gr_poly (pts
-         (xy -0.735 0.735) (xy 0.335 0.735) (xy 0.735 0.335) (xy 0.735 -0.735) (xy -0.735 -0.735)
-) (width 0))
-    ))
-  (pad 4 smd custom (at -1.97 1.97 90) (size 1 1) (layers F.Cu F.Paste F.Mask)
-    (zone_connect 0)
-    (options (clearance outline) (anchor rect))
-    (primitives
-      (gr_poly (pts
-         (xy -0.735 0.735) (xy 0.335 0.735) (xy 0.735 0.335) (xy 0.735 -0.735) (xy -0.735 -0.735)
-) (width 0))
-    ))
-  (pad 5 smd circle (at 0 0 180) (size 3.2 3.2) (layers F.Cu F.Paste F.Mask))
+  (pad 1 smd rect (at -2.07 -2.07) (size 1.27 1.27) (layers F.Cu F.Paste F.Mask))
+  (pad 2 smd rect (at 2.07 -2.07) (size 1.27 1.27) (layers F.Cu F.Paste F.Mask))
+  (pad 3 smd rect (at 2.07 2.07) (size 1.27 1.27) (layers F.Cu F.Paste F.Mask))
+  (pad 4 smd rect (at -2.07 2.07) (size 1.27 1.27) (layers F.Cu F.Paste F.Mask))
+  (pad 5 smd circle (at 0 0) (size 3 3) (layers F.Cu F.Paste F.Mask))
 )
